@@ -31,12 +31,19 @@ class PrototypesController < ApplicationController
     else
       render :edit
     end
-    
-
-    
   end
+   
+  def destroy
+    prototype = Prototype.find(params[:id])
+    prototype.destroy
+    redirect_to root_path 
+  end
+    
 
-  private
+    
+  
+
+private
 
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
