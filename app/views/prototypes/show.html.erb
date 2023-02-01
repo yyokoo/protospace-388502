@@ -30,8 +30,8 @@
         </div>
       </div>
       <div class="prototype__comments">
-        <% if user_signed_in? && current_user.id == @prototype.user_id %>
-          <%= form_with model: [@prototype, @comment],local: true do |f|%>
+        <% if user_signed_in? %>
+          <%= form_with model: [@prototype, @comment], local: true do |f|%>
             <div class="field">
                <%= f.label :content, "コメント" %><br />
                <%= f.text_field :content, id:"comment_content" %>
@@ -42,13 +42,13 @@
           <% end %>
        <% end %>
         <ul class="comments_lists">
-          <%# 投稿に紐づくコメントを一覧する処理を記述する %>
-            <li class="comments_list">
-               <%= " コメントのテキスト "%>
-               <%= link_to "#{@prototype.user.name}", root_path, class: :comment_user %>
-            </li>
-          <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
-        </ul>
+            <% @comments.each do |comment| %>
+              <li class="comments_list">
+                <%= comment.content%>
+                <%= link_to "#{comment.user.name}", root_path, class: :comment_user %>
+              </li>
+            <% end %>
+         </ul>
       </div>
     </div>
   </div>
